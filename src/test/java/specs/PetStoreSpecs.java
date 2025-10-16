@@ -1,46 +1,37 @@
 package specs;
 
-import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
-import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import org.junit.jupiter.api.BeforeAll;
 
 public class PetStoreSpecs {
-    public static RequestSpecification requestSpec;
-    public static ResponseSpecification successResponseSpec;
-    public static ResponseSpecification failureResponseSpec;
-    public static ResponseSpecification notFoundResponseSpec;
-    public static ResponseSpecification failToCreateResponseSpec;
-
-    @BeforeAll
-    public static void setup() {
-        RestAssured.baseURI = "https://petstore.swagger.io/v2";
-
-        requestSpec = new RequestSpecBuilder()
-            .setContentType(ContentType.JSON)
-            .setBaseUri("https://petstore.swagger.io/v2")
+    public static RequestSpecification requestSpec() {
+        return new RequestSpecBuilder()
+            .setBaseUri("https://petstore.swagger.io/v2/")
+            .addHeader("Content-Type", "application/json")
             .build();
+    }
 
-        successResponseSpec = new ResponseSpecBuilder()
-            .expectContentType(ContentType.JSON)
+    public static ResponseSpecification successResponseSpec(){
+        return new ResponseSpecBuilder()
+            .expectContentType("application/json")
             .expectStatusCode(200)
             .build();
 
-        failureResponseSpec = new ResponseSpecBuilder()
+    };
+
+    public static ResponseSpecification badResponseSpec(){
+        return new ResponseSpecBuilder()
+            .expectContentType("application/json")
             .expectStatusCode(400)
-            .expectContentType(ContentType.JSON)
             .build();
+    }
 
-        notFoundResponseSpec = new ResponseSpecBuilder()
+    public static ResponseSpecification notFoundResponseSpec(){
+        return new ResponseSpecBuilder()
+            .expectContentType("application/json")
             .expectStatusCode(404)
-            .expectContentType(ContentType.JSON)
-            .build();
-
-        failToCreateResponseSpec = new ResponseSpecBuilder()
-            .expectStatusCode(405)
             .build();
     }
 }

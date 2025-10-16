@@ -10,10 +10,10 @@ public class DeletePetTest extends PetStoreSpecs {
     @Test
     public void deletePetTest(){
         given()
-            .spec(requestSpec)
+            .spec(requestSpec())
             .when()
-            .delete("pet/345434")
+            .delete("pet/123")
             .then()
-            .spec(successResponseSpec);
+            .spec(successResponseSpec());
     }
 }

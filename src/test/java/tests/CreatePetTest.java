@@ -3,7 +3,6 @@ package tests;
 import dto.Pet;
 import org.junit.jupiter.api.Test;
 import specs.PetStoreSpecs;
-
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
@@ -16,12 +15,12 @@ public class CreatePetTest extends PetStoreSpecs {
             .status("available")
             .build();
         given()
-            .spec(requestSpec)
+            .spec(requestSpec())
             .body(createPet)
             .when()
             .post("/pet")
             .then()
-            .spec(successResponseSpec)
+            .spec(successResponseSpec())
             .statusCode(200)
             .body("id", equalTo(345434))
             .body("name", notNullValue())
@@ -34,12 +33,12 @@ public class CreatePetTest extends PetStoreSpecs {
             .name("piska")
             .build();
         given()
-            .spec(requestSpec)
+            .spec(requestSpec())
             .body(failureCreatePet)
             .when()
             .post("/pet")
             .then()
-            .spec(failToCreateResponseSpec)
+            .spec(badResponseSpec())
             .body("message", equalTo("Invalid input"));
     }
 }

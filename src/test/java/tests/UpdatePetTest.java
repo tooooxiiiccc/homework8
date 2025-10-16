@@ -15,7 +15,7 @@ public class UpdatePetTest extends PetStoreSpecs {
             .status("sold")
             .build();
         given()
-            .spec(requestSpec)
+            .spec(requestSpec())
             .body(updatedPet)
             .when()
             .put("/pet")

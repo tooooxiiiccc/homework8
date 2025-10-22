@@ -1,6 +1,6 @@
 package dto;
 
-public class Category {
+public class Tags {
     private Long id;
     private String name;
 }

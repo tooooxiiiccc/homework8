@@ -2,6 +2,7 @@ package specs;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 
@@ -9,7 +10,8 @@ public class PetStoreSpecs {
     public static RequestSpecification requestSpec() {
         return new RequestSpecBuilder()
             .setBaseUri("https://petstore.swagger.io/v2/")
-            .addHeader("Content-Type", "application/json")
+            .setContentType(ContentType.JSON)
+            .setAccept(ContentType.JSON)
             .build();
     }
 
@@ -30,7 +32,6 @@ public class PetStoreSpecs {
 
     public static ResponseSpecification notFoundResponseSpec(){
         return new ResponseSpecBuilder()
-            .expectContentType("application/json")
             .expectStatusCode(404)
             .build();
     }
